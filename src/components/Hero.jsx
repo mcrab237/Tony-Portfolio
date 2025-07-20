@@ -44,7 +44,6 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-background">
-        <div className="gradient-bg"></div>
         <div className="floating-shapes">
           <div className="shape shape-1"></div>
           <div className="shape shape-2"></div>
