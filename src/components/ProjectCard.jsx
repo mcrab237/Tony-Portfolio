@@ -43,7 +43,7 @@ const ProjectCard = ({ project, index }) => {
       <Link to={`/project/${project.id}`} className="project-card-link">
         <div className="project-image">
           <motion.img
-            src={project.image}
+            src={project.coverPhoto || project.image}
             alt={project.title}
             variants={imageVariants}
             whileHover="hover"

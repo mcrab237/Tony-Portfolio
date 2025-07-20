@@ -8,6 +8,8 @@ import {
   Mail,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import profileImage from "../assets/ptofile_image.png";
+import resumePdf from "../assets/resume.pdf";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -76,10 +78,14 @@ const Hero = () => {
           </motion.p>
 
           <motion.div variants={itemVariants} className="hero-buttons">
-            <button className="btn-primary">
+            <a
+              href={resumePdf}
+              download="Tony_Resume.pdf"
+              className="btn-primary"
+            >
               <Download size={18} />
               Download My CV
-            </button>
+            </a>
 
             <div className="social-links">
               <a href="#" className="social-link">
@@ -105,7 +111,7 @@ const Hero = () => {
         >
           <div className="image-container">
             <div className="profile-image">
-              <img src="/api/placeholder/400/500" alt="Tony" />
+              <img src={profileImage} alt="Tony" />
             </div>
             <div className="image-decoration">
               <div className="decoration-circle decoration-1"></div>

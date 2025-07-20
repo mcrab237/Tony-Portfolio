@@ -41,6 +41,37 @@ const ProjectDetail = () => {
     }
   };
 
+  // Utility function to format text into numbered list
+  const formatTextToList = (text) => {
+    if (!text) return [];
+
+    // Split by periods, semicolons, or line breaks and filter out empty strings
+    const sentences = text
+      .split(/[.;]|\n/)
+      .map((sentence) => sentence.trim())
+      .filter((sentence) => sentence.length > 0);
+
+    return sentences;
+  };
+
+  // Utility function to render formatted content
+  const renderFormattedContent = (content) => {
+    const items = formatTextToList(content);
+
+    if (items.length <= 1) {
+      // If only one item or no items, render as regular paragraph
+      return <p>{content}</p>;
+    }
+
+    return (
+      <ul className="formatted-list">
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    );
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -96,7 +127,7 @@ const ProjectDetail = () => {
       initial="hidden"
       animate="visible"
     >
-      <div className="container">
+      <div className="project-detail-container">
         <motion.div variants={itemVariants} className="project-header">
           <Link to="/" className="back-link">
             <ArrowLeft size={18} />
@@ -139,7 +170,11 @@ const ProjectDetail = () => {
           <motion.div variants={itemVariants} className="project-gallery">
             <div className="main-image">
               <img
-                src={project.images?.[currentImageIndex] || project.image}
+                src={
+                  project.images?.[currentImageIndex] ||
+                  project.coverPhoto ||
+                  project.image
+                }
                 alt={project.title}
               />
             </div>
@@ -162,9 +197,13 @@ const ProjectDetail = () => {
           </motion.div>
 
           <div className="project-info">
-            <motion.div variants={itemVariants} className="project-description">
+            <motion.div variants={itemVariants} className="project-overview">
               <h2>Project Overview</h2>
-              <p>{project.description || project.shortDescription}</p>
+              <div className="content-section">
+                {renderFormattedContent(
+                  project.description || project.shortDescription
+                )}
+              </div>
 
               {project.features && (
                 <div className="project-features">
@@ -234,7 +273,9 @@ const ProjectDetail = () => {
                 className="project-challenges"
               >
                 <h2>Challenges & Solutions</h2>
-                <p>{project.challenges}</p>
+                <div className="content-section">
+                  {renderFormattedContent(project.challenges)}
+                </div>
               </motion.div>
             )}
           </div>
@@ -250,7 +291,7 @@ const demoProject = {
   title: "E-Commerce Platform",
   shortDescription: "A full-stack e-commerce solution with modern UI",
   description:
-    "This is a comprehensive e-commerce platform built with React and Node.js. It features a modern, responsive design with advanced functionality including user authentication, payment processing, inventory management, and admin dashboard.",
+    "This comprehensive e-commerce platform was built using React and Node.js with modern design principles. The application features advanced functionality including user authentication and authorization systems. Payment processing was integrated using Stripe for secure transactions. An inventory management system was developed for efficient product handling. An admin dashboard provides complete control over the platform. The platform incorporates industry best practices for security and performance optimization.",
   category: "Web Development",
   technologies: [
     "React",
@@ -261,6 +302,7 @@ const demoProject = {
     "Express.js",
   ],
   image: "/api/placeholder/800/600",
+  coverPhoto: "/api/placeholder/800/600",
   images: [
     "/api/placeholder/800/600",
     "/api/placeholder/800/600",
@@ -280,7 +322,7 @@ const demoProject = {
   role: "Full Stack Developer",
   client: "Personal Project",
   challenges:
-    "One of the main challenges was implementing a secure payment system while maintaining a smooth user experience. This was solved by integrating Stripe's secure payment APIs and implementing proper error handling.",
+    "The main challenge was implementing a secure payment system while maintaining smooth user experience. This required extensive research into payment processing security protocols and third-party API integration. Another significant challenge involved optimizing application performance under high traffic loads. Database query optimization was necessary to handle large datasets efficiently. The solution involved implementing Stripe's secure payment APIs with proper error handling mechanisms. Redis caching strategies were implemented to improve performance. MongoDB indexing was optimized for faster query execution.",
 };
 
 export default ProjectDetail;

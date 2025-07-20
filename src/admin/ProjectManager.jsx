@@ -48,6 +48,7 @@ const ProjectManager = () => {
     client: "",
     challenges: "",
     images: [],
+    coverPhoto: "",
   });
 
   useEffect(() => {
@@ -101,6 +102,38 @@ const ProjectManager = () => {
     }
   };
 
+  const handleCoverPhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const storageRef = ref(
+        storage,
+        `projects/covers/${Date.now()}-${file.name}`
+      );
+      const snapshot = await uploadBytes(storageRef, file);
+      const coverPhotoUrl = await getDownloadURL(snapshot.ref);
+
+      setFormData((prev) => ({
+        ...prev,
+        coverPhoto: coverPhotoUrl,
+      }));
+    } catch (error) {
+      console.error("Error uploading cover photo:", error);
+      alert("Error uploading cover photo");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeCoverPhoto = () => {
+    setFormData((prev) => ({
+      ...prev,
+      coverPhoto: "",
+    }));
+  };
+
   const removeImage = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -117,7 +150,8 @@ const ProjectManager = () => {
       features: formData.features
         .split("\n")
         .filter((feature) => feature.trim()),
-      image: formData.images[0] || "/api/placeholder/400/300",
+      image:
+        formData.coverPhoto || formData.images[0] || "/api/placeholder/400/300",
       createdAt: editingProject ? editingProject.createdAt : serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
@@ -155,6 +189,7 @@ const ProjectManager = () => {
       client: project.client || "",
       challenges: project.challenges || "",
       images: project.images || [],
+      coverPhoto: project.coverPhoto || "",
     });
     setShowForm(true);
   };
@@ -187,6 +222,7 @@ const ProjectManager = () => {
       client: "",
       challenges: "",
       images: [],
+      coverPhoto: "",
     });
     setEditingProject(null);
     setShowForm(false);
@@ -217,6 +253,8 @@ const ProjectManager = () => {
           "Search and filter functionality",
         ],
         image:
+          "https://via.placeholder.com/800x600/667eea/ffffff?text=E-Commerce+Platform",
+        coverPhoto:
           "https://via.placeholder.com/800x600/667eea/ffffff?text=E-Commerce+Platform",
         images: [
           "https://via.placeholder.com/800x600/667eea/ffffff?text=E-Commerce+Platform",
@@ -280,6 +318,8 @@ const ProjectManager = () => {
           "Fast loading performance",
         ],
         image:
+          "https://via.placeholder.com/800x600/667eea/ffffff?text=Portfolio+Website",
+        coverPhoto:
           "https://via.placeholder.com/800x600/667eea/ffffff?text=Portfolio+Website",
         images: [
           "https://via.placeholder.com/800x600/667eea/ffffff?text=Portfolio+Website",
@@ -531,7 +571,41 @@ const ProjectManager = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Images</label>
+                  <label>Cover Photo</label>
+                  <div className="image-upload">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCoverPhotoUpload}
+                      id="cover-photo-upload"
+                    />
+                    <label htmlFor="cover-photo-upload" className="upload-btn">
+                      <Upload size={18} />
+                      {uploading ? "Uploading..." : "Upload Cover Photo"}
+                    </label>
+                  </div>
+
+                  {formData.coverPhoto && (
+                    <div className="image-preview">
+                      <div className="image-item">
+                        <img
+                          src={formData.coverPhoto}
+                          alt="Cover Photo Preview"
+                        />
+                        <button
+                          type="button"
+                          className="remove-image"
+                          onClick={removeCoverPhoto}
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label>Additional Images</label>
                   <div className="image-upload">
                     <input
                       type="file"
