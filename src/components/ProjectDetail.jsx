@@ -17,10 +17,35 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageAspectRatio, setImageAspectRatio] = useState("landscape");
 
   useEffect(() => {
     fetchProject();
   }, [id]);
+
+  useEffect(() => {
+    if (
+      project &&
+      (project.coverPhoto ||
+        project.image ||
+        project.images?.[currentImageIndex])
+    ) {
+      const img = new Image();
+      img.onload = () => {
+        const aspectRatio = img.width / img.height;
+        // If height is greater than width (portrait) or aspect ratio suggests mobile app
+        if (aspectRatio < 0.8) {
+          setImageAspectRatio("portrait");
+        } else {
+          setImageAspectRatio("landscape");
+        }
+      };
+      img.src =
+        project.images?.[currentImageIndex] ||
+        project.coverPhoto ||
+        project.image;
+    }
+  }, [project, currentImageIndex]);
 
   const fetchProject = async () => {
     try {
@@ -167,8 +192,17 @@ const ProjectDetail = () => {
         </motion.div>
 
         <div className="project-content">
-          <motion.div variants={itemVariants} className="project-gallery">
-            <div className="main-image">
+          <motion.div
+            variants={itemVariants}
+            className={`project-gallery ${
+              imageAspectRatio === "portrait" ? "mobile-app" : ""
+            }`}
+          >
+            <div
+              className={`main-image ${
+                imageAspectRatio === "portrait" ? "portrait" : "landscape"
+              }`}
+            >
               <img
                 src={
                   project.images?.[currentImageIndex] ||

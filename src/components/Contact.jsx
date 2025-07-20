@@ -103,8 +103,8 @@ const Contact = () => {
               </div>
               <div className="contact-details">
                 <h3>Email</h3>
-                <p>tony@example.com</p>
-                <a href="mailto:tony@example.com">Send Email</a>
+                <p>tonybradpit@gmail.com</p>
+                <a href="mailto:tonybradpit@gmail.com">Send Email</a>
               </div>
             </motion.div>
 
@@ -114,8 +114,8 @@ const Contact = () => {
               </div>
               <div className="contact-details">
                 <h3>Phone</h3>
-                <p>+880 123 456 789</p>
-                <a href="tel:+880123456789">Call Now</a>
+                <p>+1 (213) 270-3695</p>
+                <a href="tel:+12132703695">Call Now</a>
               </div>
             </motion.div>
 
@@ -125,9 +125,9 @@ const Contact = () => {
               </div>
               <div className="contact-details">
                 <h3>Location</h3>
-                <p>Dhaka, Bangladesh</p>
+                <p>Atlanta, GA</p>
                 <a
-                  href="https://maps.google.com"
+                  href="https://maps.google.com/?q=Atlanta,GA"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -139,15 +139,15 @@ const Contact = () => {
             <motion.div variants={itemVariants} className="social-section">
               <h3>Follow Me On</h3>
               <div className="social-links">
-                <a href="#" className="social-link">
+                <a href="https://github.com/mcrab237" className="social-link" target="_blank" rel="noopener noreferrer">
                   <Github size={20} />
                   <span>GitHub</span>
                 </a>
-                <a href="#" className="social-link">
+                <a href="https://www.linkedin.com/in/ato-tech-665817194/" className="social-link" target="_blank" rel="noopener noreferrer">
                   <Linkedin size={20} />
                   <span>LinkedIn</span>
                 </a>
-                <a href="#" className="social-link">
+                <a href="https://x.com/AtoBradley" className="social-link" target="_blank" rel="noopener noreferrer">
                   <Twitter size={20} />
                   <span>Twitter</span>
                 </a>

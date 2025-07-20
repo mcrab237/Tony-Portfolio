@@ -1,8 +1,27 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const ProjectCard = ({ project, index }) => {
+  const [imageAspectRatio, setImageAspectRatio] = useState("landscape");
+
+  useEffect(() => {
+    if (project.coverPhoto || project.image) {
+      const img = new Image();
+      img.onload = () => {
+        const aspectRatio = img.width / img.height;
+        // If height is greater than width (portrait) or aspect ratio suggests mobile app
+        if (aspectRatio < 0.8) {
+          setImageAspectRatio("portrait");
+        } else {
+          setImageAspectRatio("landscape");
+        }
+      };
+      img.src = project.coverPhoto || project.image;
+    }
+  }, [project.coverPhoto, project.image]);
+
   const cardVariants = {
     hidden: {
       opacity: 0,
@@ -33,7 +52,9 @@ const ProjectCard = ({ project, index }) => {
 
   return (
     <motion.div
-      className="project-card"
+      className={`project-card ${
+        imageAspectRatio === "portrait" ? "mobile-app" : ""
+      }`}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
@@ -41,7 +62,11 @@ const ProjectCard = ({ project, index }) => {
       whileHover={{ y: -10 }}
     >
       <Link to={`/project/${project.id}`} className="project-card-link">
-        <div className="project-image">
+        <div
+          className={`project-image ${
+            imageAspectRatio === "portrait" ? "portrait" : "landscape"
+          }`}
+        >
           <motion.img
             src={project.coverPhoto || project.image}
             alt={project.title}
@@ -97,9 +122,7 @@ const ProjectCard = ({ project, index }) => {
             )}
           </div>
 
-          <div className="view-details">
-            View Details
-          </div>
+          <div className="view-details">View Details</div>
         </div>
       </Link>
     </motion.div>

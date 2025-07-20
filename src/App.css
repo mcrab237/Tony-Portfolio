@@ -593,6 +593,20 @@ main {
   border-color: var(--color-primary);
 }
 
+.project-card.mobile-app {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(162, 211, 194, 0.3);
+}
+
+.project-card.mobile-app:hover {
+  border-color: var(--color-secondary);
+  box-shadow: 0 20px 40px rgba(162, 211, 194, 0.2);
+}
+
 .project-card-link {
   display: block;
   text-decoration: none;
@@ -605,13 +619,36 @@ main {
   position: relative;
   height: 200px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-.project-image img {
+.project-image.landscape img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+}
+
+.project-image.portrait {
+  height: 300px;
+  background: linear-gradient(
+    145deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+}
+
+.project-image.portrait img {
+  width: auto;
+  height: 100%;
+  max-width: 60%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .project-overlay {
@@ -804,20 +841,57 @@ main {
   max-width: 1000px;
 }
 
+.project-gallery.mobile-app {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(162, 211, 194, 0.05)
+  );
+  border: 1px solid rgba(162, 211, 194, 0.2);
+  max-width: 800px;
+}
+
 .main-image {
   border-radius: 15px;
   overflow: hidden;
   margin-bottom: 1.5rem;
   max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-.main-image img {
+.main-image.landscape img {
   width: 100%;
   height: auto;
   min-height: 400px;
   max-height: 600px;
   object-fit: cover;
   display: block;
+}
+
+.main-image.portrait {
+  max-height: 700px;
+  min-height: 500px;
+  background: linear-gradient(
+    145deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  padding: 2rem;
+}
+
+.main-image.portrait img {
+  width: auto;
+  height: 100%;
+  max-width: 50%;
+  min-height: 450px;
+  max-height: 650px;
+  object-fit: contain;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .image-thumbnails {
@@ -1080,14 +1154,38 @@ main {
     max-width: 100%;
   }
 
+  .project-gallery.mobile-app {
+    padding: 1rem;
+  }
+
   .main-image {
     min-height: 250px;
     max-height: 400px;
   }
 
-  .main-image img {
+  .main-image.landscape img {
     min-height: 250px;
     max-height: 400px;
+  }
+
+  .main-image.portrait {
+    min-height: 350px;
+    max-height: 500px;
+    padding: 1.5rem;
+  }
+
+  .main-image.portrait img {
+    min-height: 300px;
+    max-height: 450px;
+    max-width: 60%;
+  }
+
+  .project-image.portrait {
+    height: 250px;
+  }
+
+  .project-image.portrait img {
+    max-width: 70%;
   }
 
   .thumbnail {
@@ -1185,14 +1283,38 @@ main {
     max-width: 100%;
   }
 
+  .project-gallery.mobile-app {
+    padding: 0.8rem;
+  }
+
   .main-image {
     min-height: 200px;
     max-height: 300px;
   }
 
-  .main-image img {
+  .main-image.landscape img {
     min-height: 200px;
     max-height: 300px;
+  }
+
+  .main-image.portrait {
+    min-height: 280px;
+    max-height: 400px;
+    padding: 1rem;
+  }
+
+  .main-image.portrait img {
+    min-height: 240px;
+    max-height: 350px;
+    max-width: 70%;
+  }
+
+  .project-image.portrait {
+    height: 220px;
+  }
+
+  .project-image.portrait img {
+    max-width: 80%;
   }
 
   .thumbnail {
