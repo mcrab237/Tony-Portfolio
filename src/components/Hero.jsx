@@ -69,12 +69,11 @@ const Hero = () => {
           </motion.h1>
 
           <motion.p variants={itemVariants} className="hero-subtitle">
-            Full Stack Developer & Designer
+            Fullstack Developer
           </motion.p>
 
           <motion.p variants={itemVariants} className="hero-description">
-            I'm a passionate Full Stack Developer and UI/UX Designer based in
-            Bangladesh. Visit my profile & hire me & let's connect with me.
+            Hi I am a fullstack developer based in Atlanta Georgia. Visit my profile & hire me & let's connect with me.
           </motion.p>
 
           <motion.div variants={itemVariants} className="hero-buttons">
